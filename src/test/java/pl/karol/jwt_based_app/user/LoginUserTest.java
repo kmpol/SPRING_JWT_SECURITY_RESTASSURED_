@@ -25,8 +25,6 @@ public class LoginUserTest {
 
         DecodedJWT decode = JWT.decode(tokensResponse.getAccess_token());
         String subject = decode.getSubject();
-        System.out.println(subject);
-
         Assertions.assertThat(subject).isEqualTo(user.getUsername());
     }
 
