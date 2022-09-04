@@ -1,7 +1,6 @@
 package pl.karol.jwt_based_app.user;
 
 import org.springframework.context.annotation.Lazy;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -16,7 +15,6 @@ import pl.karol.jwt_based_app.task.Task;
 import pl.karol.jwt_based_app.task.TaskRepository;
 import pl.karol.jwt_based_app.user.dto.UserDto;
 
-import javax.swing.text.html.Option;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -64,6 +62,24 @@ public class UserServiceImplementation implements UserService, UserDetailsServic
 
     public Optional<UserDto> getUserByUsername(String username) {
         return userRepository.findByUsername(username).map(UserDtoMapper::map);
+    }
+
+    @Override
+    public Task findTaskById(String username, Long taskId){
+        Optional<User> userOptional = userRepository.findByUsername(username);
+        Optional<Task> taskOptional = taskRepository.findById(taskId);
+
+        if(userOptional.isPresent() && taskOptional.isPresent()){
+            User user = userOptional.get();
+            Task task = taskOptional.get();
+            if (checkIfUserIsOwnerOfTheTask(user, task)){
+                return task;
+            }else {
+                throw new ApiBadRequestException("You are not owner of this task");
+            }
+        } else {
+            throw new ApiBadRequestException("User or task not found");
+        }
     }
 
     @Transactional

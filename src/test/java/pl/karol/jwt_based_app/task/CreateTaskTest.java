@@ -39,8 +39,6 @@ public class CreateTaskTest extends SuiteTestBase {
         Assertions.assertThat(task).describedAs("Tasks should be the same").usingRecursiveComparison().ignoringFields("id").isEqualTo(actualTask);
     }
 
-    //TODO: COMMIT THIS TO GIT AND GITHUB
-
     @AfterMethod
     public void cleanUp(){
         new DeleteTaskEndpoint().setTaskId(actualTask.getId()).setToken(loginResponse.getAccess_token()).sendRequest().assertRequestSuccess();

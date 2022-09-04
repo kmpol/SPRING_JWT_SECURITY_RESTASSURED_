@@ -52,7 +52,6 @@ public class UserController {
                 .buildAndExpand(taskSaved.getId())
                 .toUri();
         return ResponseEntity.created(savedUserDtoUri).body(taskSaved);
-        //TODO: otestowac, metoda gotowa, sprawdzic body co zwraca w tescie, czy id to
     }
 
     @PatchMapping("/users/tasks/{taskId}")
@@ -75,6 +74,13 @@ public class UserController {
         Optional<UserDto> userDto = userService.getUserByUsername(username);
         List<Task> userTasks = userService.findUserTasks(userDto.get().getId());
         return ResponseEntity.ok().body(userTasks);
+    }
+
+    @GetMapping("/users/tasks/{taskId}")
+    public ResponseEntity<Task> findUserTaskById(HttpServletRequest request, @PathVariable Long taskId){
+        String username = getUsernameFromTokenInsideRequest(request);
+        Task task = userService.findTaskById(username, taskId);
+        return ResponseEntity.ok().body(task);
     }
 
     @DeleteMapping("/users")

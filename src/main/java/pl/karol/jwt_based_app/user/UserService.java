@@ -18,4 +18,6 @@ public interface UserService {
      List<Task> findUserTasks(Long userId);
 
      void deleteUserById(Long userId);
+
+     Task findTaskById(String username, Long taskId);
 }
