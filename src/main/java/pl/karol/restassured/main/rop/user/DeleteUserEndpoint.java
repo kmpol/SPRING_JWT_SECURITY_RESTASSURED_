@@ -1,8 +1,6 @@
 package pl.karol.restassured.main.rop.user;
 
-import io.restassured.http.ContentType;
 import org.apache.http.HttpStatus;
-import pl.karol.restassured.main.pojo.ApiResponse;
 import pl.karol.restassured.main.request.configuration.RequestConfigurationBuilder;
 import pl.karol.restassured.main.rop.BaseEndpoint;
 
@@ -10,12 +8,12 @@ import java.lang.reflect.Type;
 
 import static io.restassured.RestAssured.given;
 
-public class DeleteUserEndpoint extends BaseEndpoint<DeleteUserEndpoint, ApiResponse> {
+public class DeleteUserEndpoint extends BaseEndpoint<DeleteUserEndpoint, String> {
 
     private String jwt_token;
     @Override
     protected Type getModelType() {
-        return ApiResponse.class;
+        return String.class;
     }
 
     @Override

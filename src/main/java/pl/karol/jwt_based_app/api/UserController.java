@@ -57,7 +57,7 @@ public class UserController {
     @PatchMapping("/users/tasks/{taskId}")
     public ResponseEntity<?> toggleUserTask(HttpServletRequest request, @PathVariable Long taskId){
         userService.toggleUserTask(getUsernameFromTokenInsideRequest(request), taskId);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.noContent().header("Content-Type", "application/json").build();
     }
 
 

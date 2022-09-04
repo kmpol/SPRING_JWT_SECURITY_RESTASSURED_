@@ -1,6 +1,7 @@
 package pl.karol.restassured.main.rop.task;
 
 import org.apache.http.HttpStatus;
+import pl.karol.restassured.main.pojo.Task;
 import pl.karol.restassured.main.request.configuration.RequestConfigurationBuilder;
 import pl.karol.restassured.main.rop.BaseEndpoint;
 
@@ -8,37 +9,38 @@ import java.lang.reflect.Type;
 
 import static io.restassured.RestAssured.given;
 
-public class DeleteTaskEndpoint extends BaseEndpoint<DeleteTaskEndpoint, String> {
+public class GetTaskEndpoint extends BaseEndpoint<GetTaskEndpoint, Task> {
 
-    private Long taskId;
     private String token;
+    private Long taskId;
 
     @Override
     protected Type getModelType() {
-        return String.class;
+        return Task.class;
     }
 
     @Override
-    public DeleteTaskEndpoint sendRequest() {
+    public GetTaskEndpoint sendRequest() {
+
         response = given().spec(RequestConfigurationBuilder.getDefaultRequestSpecification())
                 .header("Authorization", "Bearer " + token)
                 .pathParam("taskId", taskId)
-                .when().delete("api/users/tasks/{taskId}");
+                .when().get("api/users/tasks/{taskId}");
         return this;
     }
 
     @Override
     public int getSuccessStatusCode() {
-        return HttpStatus.SC_NO_CONTENT;
+        return HttpStatus.SC_OK;
     }
 
-    public DeleteTaskEndpoint setTaskId(Long taskId){
-        this.taskId = taskId;
+    public GetTaskEndpoint setToken(String token){
+        this.token = token;
         return this;
     }
 
-    public DeleteTaskEndpoint setToken(String token){
-        this.token = token;
+    public GetTaskEndpoint setTaskId(Long taskId){
+        this.taskId = taskId;
         return this;
     }
 }
