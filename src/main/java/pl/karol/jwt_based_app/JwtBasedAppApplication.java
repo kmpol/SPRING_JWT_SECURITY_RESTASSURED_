@@ -12,7 +12,7 @@ public class JwtBasedAppApplication {
     public static void main(String[] args) {
         SpringApplication.run(JwtBasedAppApplication.class, args);
     }
-
+//
 
 
 }

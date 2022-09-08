@@ -2,7 +2,7 @@ package pl.karol.jwt_based_app.properties;
 
 import org.aeonbits.owner.Config;
 
-@Config.Sources("classpath:EnvironmentConfig.properties")
+@Config.Sources({"file:src/main/resources/environmentConfig.properties"})
 public interface EnvironmentConfig extends Config {
 
     @Key("BASE_URI")
@@ -12,5 +12,6 @@ public interface EnvironmentConfig extends Config {
     String basePort();
 
     @Key("JWT_SECRET")
+    @DefaultValue("mysupersecret")
     String jwtSecret();
 }

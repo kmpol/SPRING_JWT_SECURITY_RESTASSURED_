@@ -1,0 +1,18 @@
+services:
+  server:
+    build: .
+    restart: on-failure
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysqldb
+  mysqldb:
+    image: "mysql"
+    restart: on-failure
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_DATABASE: jwt_app
+      MYSQL_USER: karol
+      MYSQL_PASSWORD: admin123
+      MYSQL_ROOT_PASSWORD: admin123
